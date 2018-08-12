@@ -25,18 +25,32 @@
     document.onkeyup = function(event) {
      var userGuess = event.key;
      var computersLetter = letters[Math.floor(Math.random() * letters.length)];
-    };
+     
+        
+        if (userGuess === computersLetter){
+         wins++;
+
+     } else if ( userGuess === computersLetter){
+        for (var i = 0; i < userGuess.length; i--){
+        loss++;
+        }
+     }
+    
+    
 
 
      
      var html =
-          "<p>You chose: " + userGuess + "</p>" +
-          "<p>The computer chose: " + computersLetter+ "</p>" +
           "<p>wins: " + wins + "</p>" +
           "<p>losses: " + loss + "</p>" +
-          "<p>Guesses Left: " + guessesLeft - "</p>";
+          "<p>Guesses Left: " + guessesLeft + "</p>"+
+          "<p>You chose: " + userGuess + "</p>";
       
         document.querySelector("#game").innerHTML = html;
+    };
+
+    
+      
       
 
     
