@@ -4,46 +4,58 @@
 
 
 
- var loss = 0;
- var wins = 0;
- var guessesLeft = 9;
- 
-
- var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"];
-
- document.onkeyup = function(event) {
-  var userGuess = event.key;
-  var computersLetter = letters[Math.floor(Math.random() * letters.length)];
-  
-     
-     if (userGuess === computersLetter){
-      wins++;} 
-      else{ loss++;}
-
-    
- 
- 
+var loss = 0;
+var wins = 0;
+var guessesLeft;
+var computersLetter;
+var letterHistory = [];
 
 
-  
-  var html =
-       "<p>wins: " + wins + "</p>" +
-       "<p>losses: " + loss + "</p>" +
-       "<p>Guesses Left: " + guessesLeft + "</p>"+
-       "<p>You chose: " + userGuess + "</p>";
-   
-     document.querySelector("#game").innerHTML = html;
- };
+var letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "_"];
 
-function newFunction(userGuesses) {
-    for (var i= 0; i < guessesLeft; i--){
-        
+document.onkeyup = function (event) {
+    var userGuess = event.key.toUpperCase();
 
 
+    console.log(userGuess);
+    console.log(computersLetter);
+
+    if (userGuess === computersLetter) {
+        wins++;
+        reset();
+    }
+    else {
+        guessesLeft--;
+        letterHistory.push(userGuess);
     };
+
+    if (guessesLeft === 0) {
+        loss++;
+        reset();
+    }
+
+
+    var html =
+        "<p>wins: " + wins + "</p>" +
+        "<p>losses: " + loss + "</p>" +
+        "<p>Guesses Left: " + guessesLeft + "</p>" +
+        "<p>Guesses so far: " + letterHistory.join(', ') + "</p>";
+
+    document.querySelector("#game").innerHTML = html;
+};
+
+
+function reset() {
+    // reset computer guess
+    computersLetter = letters[Math.floor(Math.random() * letters.length)];
+    // reset number of guesses remaining
+    guessesLeft = 9;
+    // guess history
+    letterHistory=[]
 }
 
- function clear (){
+// main
+reset()
 
-     
- }
+
+
